@@ -1,8 +1,8 @@
-# Ticket #T05 — "The new hire's PC won't connect to anything"
+# Ticket #T05: "The new hire's PC won't connect to anything"
 
 **[← Back to lab overview](../README.md)**
 
-**Affected user:** PC2 (VLAN 20 Staff — new hire)
+**Affected user:** PC2 (VLAN 20 Staff, new hire)
 **Severity:** Sev-C
 **Packet Tracer file:** [`packet-tracer-files/SOHO-Lab-01-t05.pkt`](../packet-tracer-files/SOHO-Lab-01-t05.pkt)
 
@@ -16,11 +16,11 @@
 
 ### 1. Check PC state
 
-`ipconfig /all` on PC2 — all fields `0.0.0.0`. No DHCP lease.
+`ipconfig /all` on PC2 shows all fields `0.0.0.0`. No DHCP lease.
 
 ![PC2 no IP](../screenshots/t05-01-symptom-pc2-no-ip.png)
 
-### 2. Physical check — link light on the cable
+### 2. Physical check on the cable's link light
 
 Green link lights on both ends of PC2's cable. Layer 1 and 2 between PC and switch are fine.
 
@@ -28,23 +28,23 @@ Green link lights on both ends of PC2's cable. Layer 1 and 2 between PC and swit
 
 ### 3. Interpret the symptom pattern
 
-**Key insight:** green link + no DHCP on a single PC (while neighbors work) = most likely a switchport VLAN problem, not a DHCP or cable issue. Contrast with [T02](T02-dhcp-pool-missing.md), where *multiple* PCs failed DHCP in the same VLAN — that pointed at the DHCP pool. Here, only one PC, so check the port.
+**Key insight:** green link + no DHCP on a single PC (while neighbors work) = most likely a switchport VLAN problem, not a DHCP or cable issue. Contrast with [T02](T02-dhcp-pool-missing.md), where *multiple* PCs failed DHCP in the same VLAN; that pointed at the DHCP pool. Here, only one PC, so check the port.
 
 ### 4. Inspect the switchport assignment
 
-On Switch0, `show interfaces FastEthernet0/6 switchport` — Access Mode VLAN is `99`, not the expected `20`.
+On Switch0, `show interfaces FastEthernet0/6 switchport` shows Access Mode VLAN is `99`, not the expected `20`.
 
 ![switchport in wrong VLAN](../screenshots/t05-03-switch0-show-switchport-vlan99.png)
 
 ### 5. Verify VLAN 99 is not part of the network design
 
-`show vlan brief` — VLAN 99 either doesn't exist in the database or exists only as Fa0/6's lonely member. It's not part of the documented topology.
+`show vlan brief` shows VLAN 99 either doesn't exist in the database or exists only as Fa0/6's lonely member. It's not part of the documented topology.
 
 ![vlan brief](../screenshots/t05-04-switch0-show-vlan-brief-wrong.png)
 
 ## Root cause
 
-Switchport Fa0/6 was misassigned to VLAN 99 — a VLAN with no DHCP pool, no router sub-interface, and no trunk membership. The PC is alive on the wire but stranded on an island VLAN.
+Switchport Fa0/6 was misassigned to VLAN 99, a VLAN with no DHCP pool, no router sub-interface, and no trunk membership. The PC is alive on the wire but stranded on an island VLAN.
 
 ## Fix
 

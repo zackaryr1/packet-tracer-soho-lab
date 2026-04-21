@@ -1,4 +1,4 @@
-# Ticket #T08 — "We can reach internal stuff but can't get to the internet"
+# Ticket #T08: "We can reach internal stuff but can't get to the internet"
 
 **[← Back to lab overview](../README.md)**
 
@@ -16,31 +16,31 @@
 
 ### 1. Test internal reachability
 
-From PC0, `ping 192.168.20.10` (Printer0, cross-VLAN internal) — 4/4 replies. Internal routing is intact. Rules out a total network outage.
+From PC0, `ping 192.168.20.10` (Printer0, cross-VLAN internal) returns 4/4 replies. Internal routing is intact. Rules out a total network outage.
 
 ![internal pings work](../screenshots/t08-01-symptom-pc0-internal-ping-success.png)
 
 ### 2. Test external reachability
 
-`ping 203.0.113.1` — 4/4 timeouts. External is specifically broken.
+`ping 203.0.113.1` returns 4/4 timeouts. External is specifically broken.
 
 ![external ping fails](../screenshots/t08-02-symptom-pc0-external-ping-fail.png)
 
 ### 3. Trace the failing path with `tracert`
 
-`tracert 203.0.113.1` reaches `192.168.10.1` (Router0) on hop 1, then dies. **Tracert dying at the edge router means the problem is *on* the router** — not the LAN, not the PC. Three most likely causes: (a) egress interface is down, (b) no route for the destination, (c) an ACL is dropping traffic on egress.
+`tracert 203.0.113.1` reaches `192.168.10.1` (Router0) on hop 1, then dies. Tracert dying at the edge router means the problem is *on* the router, not the LAN, not the PC. Three most likely causes: (a) egress interface is down, (b) no route for the destination, (c) an ACL is dropping traffic on egress.
 
 ![tracert dies at router](../screenshots/t08-03-pc0-tracert-dies-at-router0.png)
 
 ### 4. Check router interface status
 
-On Router0, `show ip interface brief` — `GigabitEthernet0/1` (the WAN uplink) is **administratively down**. All internal sub-interfaces are up.
+On Router0, `show ip interface brief` shows `GigabitEthernet0/1` (the WAN uplink) as **administratively down**. All internal sub-interfaces are up.
 
 ![Gi0/1 admin down](../screenshots/t08-04-router0-show-ip-int-brief-gi01-down.png)
 
 ### 5. Check the routing table
 
-`show ip route` — no `C  203.0.113.0/30` connected route (because Gi0/1 is down), and no `S*  0.0.0.0/0` default route (the static default's next-hop is unreachable, so the routing table drops it automatically).
+`show ip route` shows no `C  203.0.113.0/30` connected route (because Gi0/1 is down), and no `S*  0.0.0.0/0` default route (the static default's next-hop is unreachable, so the routing table drops it automatically).
 
 ![routing table missing default](../screenshots/t08-05-router0-show-ip-route-missing-default.png)
 

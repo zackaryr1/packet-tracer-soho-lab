@@ -1,4 +1,4 @@
-# Ticket #T07 — "I can't get on the guest Wi-Fi"
+# Ticket #T07: "I can't get on the guest Wi-Fi"
 
 **[← Back to lab overview](../README.md)**
 
@@ -48,7 +48,7 @@ Laptop sees `SOHO-Guest`, connects with the documented passphrase, obtains DHCP,
 
 ## Note on differentiating wireless tickets
 
-This ticket and [T04](T04-wrong-wifi-psk.md) look similar on the surface — both are "I can't get on Wi-Fi." The first diagnostic step distinguishes them cleanly:
+This ticket and [T04](T04-wrong-wifi-psk.md) look similar on the surface. Both are "I can't get on Wi-Fi." The first diagnostic step distinguishes them cleanly:
 
 - **SSID not visible at all** → check the AP's SSID broadcast (this ticket, T07).
 - **SSID visible but won't authenticate** → check the AP's PSK / auth config ([T04](T04-wrong-wifi-psk.md)).

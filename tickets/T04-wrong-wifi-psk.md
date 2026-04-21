@@ -1,4 +1,4 @@
-# Ticket #T04 — "I can see the guest Wi-Fi but it won't let me connect"
+# Ticket #T04: "I can see the guest Wi-Fi but it won't let me connect"
 
 **[← Back to lab overview](../README.md)**
 
@@ -16,13 +16,13 @@
 
 ### 1. Scan for available networks
 
-On Laptop0, PC Wireless → Connect tab → Refresh. The `SOHO-Guest` SSID **is visible**. This is the key differentiator from [T07](T07-wrong-ssid.md) (where the SSID itself was missing) — the AP is broadcasting correctly, so the problem is downstream of discovery.
+On Laptop0, PC Wireless → Connect tab → Refresh. The `SOHO-Guest` SSID is visible. This is the key differentiator from [T07](T07-wrong-ssid.md) (where the SSID itself was missing): the AP is broadcasting correctly, so the problem is downstream of discovery.
 
 ![SSID visible](../screenshots/t04-01-symptom-ssid-visible.png)
 
 ### 2. Attempt to associate with the documented passphrase
 
-Entered `GuestPass123` (the documented, correct passphrase). **Packet Tracer's wireless simulation fails silently** — no error dialog, no popup. The association simply never completes.
+Entered `GuestPass123` (the documented, correct passphrase). Packet Tracer's wireless simulation fails silently: no error dialog, no popup. The association simply never completes.
 
 ![no connected indicator](../screenshots/t04-02-symptom-no-connected-indicator.png)
 
@@ -59,7 +59,7 @@ Laptop0 associates successfully, pulls DHCP lease on VLAN 30, pings external.
 
 ## Note on differentiating wireless tickets
 
-This ticket and [T07](T07-wrong-ssid.md) look similar on the surface — both are "I can't get on Wi-Fi." The first diagnostic step distinguishes them cleanly:
+This ticket and [T07](T07-wrong-ssid.md) look similar on the surface. Both are "I can't get on Wi-Fi." The first diagnostic step distinguishes them cleanly:
 
 - **SSID visible but won't authenticate** → check the AP's PSK / auth config (this ticket, T04).
 - **SSID not visible at all** → check the AP's SSID broadcast ([T07](T07-wrong-ssid.md)).

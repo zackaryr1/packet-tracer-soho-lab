@@ -1,4 +1,4 @@
-# Ticket #T03 — "I can ping the server but websites won't load"
+# Ticket #T03: "I can ping the server but websites won't load"
 
 **[← Back to lab overview](../README.md)**
 
@@ -14,25 +14,25 @@
 
 ## Diagnosis
 
-### 1. `ping 203.0.113.1` — test IP-layer reachability
+### 1. `ping 203.0.113.1`: test IP-layer reachability
 
 4/4 replies. Network path and routing are fine.
 
 ![ping by IP succeeds](../screenshots/t03-01-symptom-ping-ip-success.png)
 
-### 2. `ping google.com` — test name resolution
+### 2. `ping google.com`: test name resolution
 
 *"Ping request could not find host google.com."* **Name resolution specifically** is broken. This is the fingerprint of a DNS problem: Layer 1 through 4 work, Layer 7 (DNS) fails.
 
 ![ping by name fails](../screenshots/t03-02-ping-name-fails.png)
 
-### 3. `nslookup google.com` — confirm DNS server is unreachable
+### 3. `nslookup google.com`: confirm DNS server is unreachable
 
 DNS request times out. Confirms the configured DNS server is unreachable, not just slow.
 
 ![nslookup timeout](../screenshots/t03-03-nslookup-timeout.png)
 
-### 4. `ipconfig /all` — check the configured DNS server
+### 4. `ipconfig /all`: check the configured DNS server
 
 DNS Server shows `10.10.10.10`, an IP that doesn't exist anywhere in this network.
 

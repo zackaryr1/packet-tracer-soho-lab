@@ -1,4 +1,4 @@
-# Ticket #T02 — "My PC got a weird 169 address and nothing works"
+# Ticket #T02: "My PC got a weird 169 address and nothing works"
 
 **[← Back to lab overview](../README.md)**
 
@@ -14,23 +14,23 @@
 
 ## Clarifying questions I asked
 
-- Is anyone else in your area affected? (Yes — the coworker next to them has the same issue.) This immediately raises severity.
+- Is anyone else in your area affected? (Yes, the coworker next to them has the same issue.) This immediately raises severity.
 
 ## Diagnosis
 
-### 1. `ipconfig /all` on PC1 — confirm the reported 169 address
+### 1. `ipconfig /all` on PC1: confirm the reported 169 address
 
 In Packet Tracer's simulation, all address fields show `0.0.0.0` after a failed DHCP renew. (In real Windows this would be an APIPA address `169.254.x.x`; PT shows `0.0.0.0` instead. Both indicate the same underlying problem: no DHCP response received.)
 
 ![PC1 no IP](../screenshots/t02-01-symptom-pc1-no-ip-ipconfig.png)
 
-### 2. `ipconfig /release` then `ipconfig /renew` — try to re-acquire
+### 2. `ipconfig /release` then `ipconfig /renew`: try to re-acquire
 
 Renew times out with `DHCP request failed.`
 
 ![renew fails](../screenshots/t02-02-pc1-renew-fail.png)
 
-### 3. Rule out a PC-specific issue — test PC2 (same VLAN)
+### 3. Rule out a PC-specific issue: test PC2 (same VLAN)
 
 PC2 also fails release/renew with the same `DHCP request failed.` output. Two PCs in the same VLAN failing DHCP → the problem is upstream, not on the PCs themselves.
 
@@ -38,7 +38,7 @@ PC2 also fails release/renew with the same `DHCP request failed.` output. Two PC
 
 ### 4. Check Router0's DHCP pool configuration
 
-On Router0, `show ip dhcp pool` — only `VLAN10-IT` and `VLAN30-GUEST` are listed. `VLAN20-STAFF` is missing entirely.
+On Router0, `show ip dhcp pool` shows only `VLAN10-IT` and `VLAN30-GUEST`. `VLAN20-STAFF` is missing entirely.
 
 ![Router0 show ip dhcp pool](../screenshots/t02-04-router0-show-ip-dhcp-pool-missing.png)
 
