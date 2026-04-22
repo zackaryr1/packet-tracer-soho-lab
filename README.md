@@ -102,7 +102,7 @@ All tickets are reproducible end-to-end in under 5 minutes each.
 
 ### Build it yourself from scratch
 
-Prefer to build the whole network from an empty Packet Tracer workspace? The full step-by-step walkthrough is here: **[SOHO Troubleshooting Lab Guide](SOHO-Troubleshooting-Lab-Guide.md)** — every device placement, cable, CLI command, and break recipe, tested end-to-end on Packet Tracer 8.2.
+Prefer to build the whole network from an empty Packet Tracer workspace? The full step-by-step walkthrough is here: **[SOHO Troubleshooting Lab Guide](SOHO-Troubleshooting-Lab-Guide.md)** every device placement, cable, CLI command, and break recipe, tested end-to-end on Packet Tracer 8.2.
 
 ---
 
