@@ -100,6 +100,10 @@ I see these adaptations as evidence I hit real tooling constraints and adapted r
 
 All tickets are reproducible end-to-end in under 5 minutes each.
 
+### Build it yourself from scratch
+
+Prefer to build the whole network from an empty Packet Tracer workspace? The full step-by-step walkthrough is here: **[SOHO Troubleshooting Lab Guide](SOHO-Troubleshooting-Lab-Guide.md)** — every device placement, cable, CLI command, and break recipe, tested end-to-end on Packet Tracer 8.2.
+
 ---
 
 ## Repository contents
@@ -107,6 +111,7 @@ All tickets are reproducible end-to-end in under 5 minutes each.
 ```
 packet-tracer-soho-lab/
 ├── README.md                                       (this file, lab overview)
+├── SOHO-Troubleshooting-Lab-Guide.md               (full build-it-yourself walkthrough)
 ├── tickets/                                        (full writeup for each ticket)
 │   ├── T01-wrong-gateway.md
 │   ├── T02-dhcp-pool-missing.md
